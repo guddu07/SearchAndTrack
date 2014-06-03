@@ -1,0 +1,29 @@
+# MySQL.  Versions 4.1 and 5.0 are recommended.
+
+development:
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: Demo_app
+  pool: 5
+  username: root
+  password: idify
+
+test:
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: Demo_app
+  pool: 5
+  username: root
+  password: idify
+
+production:
+  adapter: mysql2
+  encoding: utf8
+  reconnect: true
+  database: Demo_app
+  pool: 5
+  username: root
+  password: idify
+  host: localhost

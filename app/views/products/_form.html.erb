@@ -1,0 +1,54 @@
+<%= form_for(@product) do |f| %>
+  <% if @product.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
+
+      <ul>
+      <% @product.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :price %><br>
+    <%= f.text_field :price %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_field :description %>
+  </div>
+  <div class="field">
+    Tags<br>
+    <%= text_field_tag :tags, "test", class: "form-control" %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<%= javascript_tag do %>
+	$(function() {
+    $("#tags").tokenInput("<%=get_tags_products_path%>.json", {
+	  	propertyToSearch : "title",
+	    crossDomain: false,
+	    prePopulate: <%= raw @product_tags.to_json %>,
+	    theme: "facebook",
+	    preventDuplicates: false,
+	    tokenValue: "title",
+      onResult: function (item) {
+        if($.isEmptyObject(item)){
+          return [{id:'0', title: $("tester").text()}]
+        }else{
+          return item
+        }
+      }
+	 });
+	});
+<% end %>
+
